@@ -43,6 +43,11 @@ MAPPING = {
     "reset_main_brush_life_level": {"siid": 14, "aiid": 1},
     "reset_side_brush_life_level": {"siid": 15, "aiid": 1},
     "reset_filter_life_level": {"siid": 11, "aiid": 1},
+    "move_left": {"siid": 8, "piid": 1, "value": 0},  # Mover a la izquierda
+    "move_right": {"siid": 8, "piid": 1, "value": 1}, # Mover a la derecha
+    "move_forward": {"siid": 8, "piid": 1, "value": 2}, # Mover hacia adelante
+    "move_backward": {"siid": 8, "piid": 1, "value": 3}, # Mover hacia atrás
+    "stop_movement": {"siid": 8, "piid": 1, "value": 4} # Detener movimiento
 }
 
 MIOT_MAPPING = {model: MAPPING for model in SUPPORTED_MODELS}
@@ -356,6 +361,32 @@ class G1Vacuum(MiotDevice):
     def find(self) -> None:
         """Find the robot."""
         return self.call_action_from_mapping("find")
+    
+    @command()
+    def move_left(self):
+        """Move the robot to the left."""
+        return self.call_action_from_mapping("move_left")
+
+    @command()
+    def move_right(self):
+        """Move the robot to the right."""
+        return self.call_action_from_mapping("move_right")
+
+    @command()
+    def move_forward(self):
+        """Move the robot forward."""
+        return self.call_action_from_mapping("move_forward")
+
+    @command()
+    def move_backward(self):
+        """Move the robot backward."""
+        return self.call_action_from_mapping("move_backward")
+
+    @command()
+    def stop_movement(self):
+        """Stop the robot's movement."""
+        return self.call_action_from_mapping("stop_movement")
+
 
     @command(click.argument("consumable", type=G1Consumable))
     def consumable_reset(self, consumable: G1Consumable):
