@@ -43,6 +43,7 @@ MAPPING = {
     "reset_main_brush_life_level": {"siid": 14, "aiid": 1},
     "reset_side_brush_life_level": {"siid": 15, "aiid": 1},
     "reset_filter_life_level": {"siid": 11, "aiid": 1},
+    
     "move_left": {"siid": 8, "piid": 1, "value": 0},  # Mover a la izquierda
     "move_right": {"siid": 8, "piid": 1, "value": 1}, # Mover a la derecha
     "move_forward": {"siid": 8, "piid": 1, "value": 2}, # Mover hacia adelante
@@ -167,6 +168,8 @@ class G1Status(DeviceStatus):
     @property
     def battery(self) -> int:
         """Battery Level."""
+        # log a log to test if this is still needed
+        _LOGGER.debug("################################################### HOLAAAAAA ################################################### ")
         return self.data["battery"]
 
     @property
@@ -365,27 +368,27 @@ class G1Vacuum(MiotDevice):
     @command()
     def move_left(self):
         """Move the robot to the left."""
-        return self.call_action_from_mapping("move_left")
+        return self.call_action_from_mapping("move_left", 0)
 
     @command()
     def move_right(self):
         """Move the robot to the right."""
-        return self.call_action_from_mapping("move_right")
+        return self.call_action_from_mapping("move_right", 1)
 
     @command()
     def move_forward(self):
         """Move the robot forward."""
-        return self.call_action_from_mapping("move_forward")
+        return self.call_action_from_mapping("move_forward", 2)
 
     @command()
     def move_backward(self):
         """Move the robot backward."""
-        return self.call_action_from_mapping("move_backward")
+        return self.call_action_from_mapping("move_backward", 3)
 
     @command()
     def stop_movement(self):
         """Stop the robot's movement."""
-        return self.call_action_from_mapping("stop_movement")
+        return self.call_action_from_mapping("stop_movement", 4)
 
 
     @command(click.argument("consumable", type=G1Consumable))
